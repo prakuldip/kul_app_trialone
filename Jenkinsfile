@@ -9,11 +9,11 @@ stages {
         stage('building and pushing docker image') {
             environment {
             registry_endpoint = "${env.registryURI}" + "${env.registry}"
-            image_tag = "${env.registryURI}" + ":$GIT_COMMIT"
+            tag_commit_id = "${env.registryURI}" + ":$GIT_COMMIT"
             }
             steps{
                 script {
-                    def kul_app_image = docker.build(image_tag)
+                    def kul_app_image = docker.build(tag_commit_id)
                     docker.withRegistry( registry_endpoint, registryCredential ) {
                         kul_app_image.push()
                     }
