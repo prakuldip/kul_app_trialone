@@ -9,7 +9,7 @@ stages {
         stage('building and pushing docker image') {
             environment {
             registry_endpoint = "${env.registryURI}" + "${env.registry}"
-            tag_commit_id = "${env.registryURI}" + ":$GIT_COMMIT"
+            tag_commit_id = "${env.registry}" + ":$GIT_COMMIT"
             }
             steps{
                 script {
