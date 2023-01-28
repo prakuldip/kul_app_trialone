@@ -9,17 +9,23 @@ stages {
         stage('building and pushing docker image') {
             environment {
             registry_endpoint = "${env.registryURI}" + "${env.registry}"
-            tag_commit_id = "${env.registry}" + ":$GIT_COMMIT"
+            image_tag = "${env.registry}" + ":" + "$GIT_COMMIT"
             }
             steps{
                 script {
-                    def kul_app_image = docker.build(tag_commit_id)
-                    docker.withRegistry( registry_endpoint, registryCredential ) {
+                    def kul_app_image = docker.build(image_tag)
+                    docker.withRegistry(registry_endpoint,registryCredential ){
                         kul_app_image.push()
                     }
                 }
             }
         }
 
+    }
+    post { 
+        always { 
+            echo 'Deleting Workspace'
+            deleteDir() /* clean up our workspace */
+        }
     }
 }
