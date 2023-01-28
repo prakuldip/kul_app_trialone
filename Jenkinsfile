@@ -9,7 +9,7 @@ stages {
         stage('building and pushing docker image') {
             steps{
                 script {
-                    def kul_app_image = docker.build()
+                    def kul_app_image = docker.build("${env.registry}:$GIT_COMMIT")
                     docker.withRegistry(registryURI,registryCredential ){
                         kul_app_image.push()
                     }
