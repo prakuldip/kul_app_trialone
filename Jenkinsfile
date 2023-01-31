@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        registryURI = "https://registry.hub.docker.com/"
+        registryURI = "registry.hub.docker.com/"
         registry = "prakuldip/jenkinsfile_kul_app_trialone"
         registryCredential = "dockerhub_cred"
     }
@@ -10,7 +10,7 @@ stages {
             steps{
                 script {
                     def kul_app_image = docker.build("${env.registry}:$GIT_COMMIT")
-                    docker.withRegistry(registryURI,registryCredential ){
+                    docker.withRegistry("https://"+"${env.registryURI}",registryCredential){
                         kul_app_image.push()
                     }
                 }
