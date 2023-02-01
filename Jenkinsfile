@@ -3,7 +3,7 @@ pipeline {
     environment {
         registryURI = "registry.hub.docker.com/"
         registry = "prakuldip/jenkinsfile_kul_app_trialone"
-        registryCredential = "dockerhub_cred"
+        registryCredential = "dh-id"
     }
 stages {
         stage('building and pushing docker image') {
