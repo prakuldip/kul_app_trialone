@@ -19,7 +19,7 @@ stages {
         stage('removing docker image') {
             steps{
                 script {
-                    docker image rm registryURI+registry+$GIT_COMMIT
+                    sh "docker image rm registryURI+registry+$GIT_COMMIT"
                     }
                 }
             }
