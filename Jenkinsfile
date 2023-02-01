@@ -10,13 +10,20 @@ stages {
             steps{
                 script {
                     def kul_app_image = docker.build("${env.registryURI}${env.registry}:$GIT_COMMIT")
-                    echo "${kul_app_image}"
                     docker.withRegistry("https://${env.registryURI}",registryCredential){
                         kul_app_image.push()
                     }
                 }
             }
-    }
+        }
+        stage('removing docker image') {
+            steps{
+                script {
+                    echo registryURI
+                    }
+                }
+            }
+        }
 }
     post { 
         always { 
