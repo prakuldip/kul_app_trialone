@@ -23,8 +23,7 @@ stages {
                     }
                 }
             }
-        }
-}
+    }
     post { 
         always { 
             echo 'Deleting Workspace'
