@@ -12,8 +12,8 @@ stages {
                     def kul_app_image = docker.build("${env.registryURI}${env.registry}:$GIT_COMMIT")
                     docker.withRegistry("https://${env.registryURI}",registryCredential){
                         kul_app_image.push()
-                    sh "docker image rm '${registryURI}${registry}:$GIT_COMMIT'"
                     }
+                    sh "docker image rm '${registryURI}${registry}:$GIT_COMMIT'"
                 }
             }
         }
