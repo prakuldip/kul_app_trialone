@@ -6,23 +6,17 @@ pipeline {
         registryCredential = "dockerhub_cred"
     }
 stages {
-        stage('building and pushing docker image') {
+        stage('docker image build,push to remote and delete locally') {
             steps{
                 script {
                     def kul_app_image = docker.build("${env.registryURI}${env.registry}:$GIT_COMMIT")
                     docker.withRegistry("https://${env.registryURI}",registryCredential){
                         kul_app_image.push()
-                    }
-                }
-            }
-        }
-        stage('removing docker image') {
-            steps{
-                script {
                     sh "docker image rm '${registryURI}${registry}:$GIT_COMMIT'"
                     }
                 }
             }
+        }
     }
     post { 
         always { 
